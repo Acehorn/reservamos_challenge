@@ -1,8 +1,7 @@
+import 'package:dartz/dartz.dart';
 import 'package:reservamos_challenge/domain/entities/homelogic_entity.dart';
+import 'package:reservamos_challenge/domain/failures/failures.dart';
 
 abstract class HomeRepo {
-
-/*   Future<HomeLogicEntity> getHomeLogicFromDatasource(){
-    return ""
-  } */
+  Future<Either<Failure, HomeLogicEntity>> getHomeLogicFromDatasource();
 }
