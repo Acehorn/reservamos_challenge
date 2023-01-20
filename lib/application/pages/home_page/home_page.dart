@@ -7,8 +7,6 @@ import 'package:reservamos_challenge/application/pages/home_page/widgets/error_m
 import 'widgets/button_place.dart';
 import 'widgets/text_place_field.dart';
 
-import 'package:provider/provider.dart';
-
 import 'bloc/home_logic_bloc.dart';
 
 class HomePageWrapperProvider extends StatelessWidget {
@@ -33,7 +31,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-     final themeData = Theme.of(context);
+    final themeData = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue[900],
@@ -42,34 +40,32 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children:  [
+        children: [
           const TextPlaceField(),
           const ButtonPlace(),
-          Expanded(child: Align(
+          Expanded(
+              child: Align(
             alignment: Alignment.topCenter,
             child: BlocBuilder<HomeLogicBloc, HomeLogicState>(
-              builder: (context, state){
-          
-                if(state is HomeLogicInitial){
-                  return const AdviceField(advice: "EXAMPLE ADVICE - YOUR DAY WILL BE GOOD");
-                } else if (state is HomeLStateLoading){
-                   return CircularProgressIndicator(
-              color: themeData.colorScheme.secondary,
-                );
-                } else if(state is HomeLStateLoaded){
-                  return  const CardPlace(placeLocation: "CDMX", temperature: "18°");
-                } else if (state is HomeLStateError){
-                   return  
-                ErrorMessage(message: state.message);
+              builder: (context, state) {
+                if (state is HomeLogicInitial) {
+                  return const AdviceField(
+                      advice: "EXAMPLE ADVICE - YOUR DAY WILL BE GOOD");
+                } else if (state is HomeLStateLoading) {
+                  return CircularProgressIndicator(
+                    color: themeData.colorScheme.secondary,
+                  );
+                } else if (state is HomeLStateLoaded) {
+                  return  CardPlace(
+                      placeLocation: state.advice, temperature: "18°");
+                } else if (state is HomeLStateError) {
+                  return ErrorMessage(message: state.message);
                 }
-              
-              return const SizedBox();
+
+                return const SizedBox();
               },
             ),
-          )
-          
-
-              )
+          ))
         ],
       ),
     );

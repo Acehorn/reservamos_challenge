@@ -33,11 +33,11 @@ class GetLatitude {
     String asciiDisplay;
     String cityName;
     String cityAsciiName;
-    Country state;
-    Country country;
+    String state;
+    String country;
     String lat;
     String long;
-    ResultType resultType;
+    String resultType;
     String popularity;
     double sortCriteria;
 
@@ -49,11 +49,11 @@ class GetLatitude {
         asciiDisplay: json["ascii_display"],
         cityName: json["city_name"],
         cityAsciiName: json["city_ascii_name"],
-        state: countryValues.map[json["state"]]!,
-        country: countryValues.map[json["country"]]!,
+        state: json["state"],
+        country: json["country"],
         lat: json["lat"],
         long: json["long"],
-        resultType: resultTypeValues.map[json["result_type"]]!,
+        resultType: json["resultType"],
         popularity: json["popularity"],
         sortCriteria: json["sort_criteria"]?.toDouble(),
     );
@@ -66,44 +66,16 @@ class GetLatitude {
         "ascii_display": asciiDisplay,
         "city_name": cityName,
         "city_ascii_name": cityAsciiName,
-        "state": countryValues.reverse[state],
-        "country": countryValues.reverse[country],
+        "state": state,
+        "country": country,
         "lat": lat,
         "long": long,
-        "result_type": resultTypeValues.reverse[resultType],
+        "result_type": resultType,
         "popularity": popularity,
         "sort_criteria": sortCriteria,
     };
 }
 
-enum Country { MXICO, VERACRUZ, MORELOS, PUEBLA, MICHOACN, JALISCO, OAXACA }
 
-final countryValues = EnumValues({
-    "Jalisco": Country.JALISCO,
-    "Michoacán": Country.MICHOACN,
-    "Morelos": Country.MORELOS,
-    "México": Country.MXICO,
-    "Oaxaca": Country.OAXACA,
-    "Puebla": Country.PUEBLA,
-    "Veracruz": Country.VERACRUZ
-});
 
-enum ResultType { CITY, TERMINAL, AIRPORT }
 
-final resultTypeValues = EnumValues({
-    "airport": ResultType.AIRPORT,
-    "city": ResultType.CITY,
-    "terminal": ResultType.TERMINAL
-});
-
-class EnumValues<T> {
-    Map<String, T> map;
-    late Map<T, String> reverseMap;
-
-    EnumValues(this.map);
-
-    Map<T, String> get reverse {
-        reverseMap = map.map((k, v) => MapEntry(v, k));
-        return reverseMap;
-    }
-}
