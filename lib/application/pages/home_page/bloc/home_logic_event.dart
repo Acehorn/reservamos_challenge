@@ -6,4 +6,8 @@ abstract class HomeLogicEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class HomeRequestedEvent extends HomeLogicEvent {}
+class HomeRequestedEvent extends HomeLogicEvent {
+final String place;
+
+  HomeRequestedEvent(this.place);
+}

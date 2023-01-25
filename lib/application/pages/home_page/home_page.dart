@@ -5,7 +5,6 @@ import 'package:reservamos_challenge/application/pages/home_page/widgets/card_pl
 import 'package:reservamos_challenge/application/pages/home_page/widgets/error_message.dart';
 
 import '../../../injection.dart';
-import 'widgets/button_place.dart';
 import 'widgets/text_place_field.dart';
 
 import 'bloc/home_logic_bloc.dart';
@@ -30,6 +29,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
@@ -42,8 +42,7 @@ class _HomePageState extends State<HomePage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          const TextPlaceField(),
-          const ButtonPlace(),
+           const TextPlaceField(),
           Expanded(
               child: Align(
             alignment: Alignment.topCenter,
