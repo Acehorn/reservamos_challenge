@@ -10,9 +10,9 @@ class HomeRepoImpl implements HomeRepo {
   HomeRepoImpl({required this.homeRemoteDatasource});
 
   @override
-  Future<Either<Failure, HomeLogicEntity>> getHomeLogicFromDatasource() async {
+  Future<Either<Failure, HomeLogicEntity>> getHomeLogicFromDatasource(String place) async {
     try {
-      final result = await homeRemoteDatasource.getRandomHomeFromApi();
+      final result = await homeRemoteDatasource.getRandomHomeFromApi(place);
       return right(result);
     } on ServerException catch (_) {
       return left(ServerFailure());

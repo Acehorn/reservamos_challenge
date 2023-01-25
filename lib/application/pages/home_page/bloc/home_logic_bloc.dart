@@ -16,7 +16,7 @@ class HomeLogicBloc extends Bloc<HomeLogicEvent, HomeLogicState> {
   HomeLogicBloc({required this.homeUseCase}) : super(HomeLogicInitial()) {
     on<HomeRequestedEvent>((event, emit) async {
       emit(HomeLStateLoading());
-      final failureOrHomeLog = await homeUseCase.getHomeLogic();
+      final failureOrHomeLog = await homeUseCase.getHomeLogic("London");
       failureOrHomeLog.fold(
         (failure) =>
             emit(HomeLStateError(message: _mapFailureToMessage(failure))),

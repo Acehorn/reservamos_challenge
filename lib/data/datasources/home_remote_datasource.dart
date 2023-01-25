@@ -6,15 +6,15 @@ import 'package:reservamos_challenge/data/exceptions/exceptions.dart';
 import '../models/home_datasource_model.dart';
 
 abstract class HomeRemoteDatasource {
-  Future<HomeDataSourceModel> getRandomHomeFromApi();
+  Future<HomeDataSourceModel> getRandomHomeFromApi(String place);
 }
 
 class HomeRemoteDatasourceImpl implements HomeRemoteDatasource {
   final http.Client client;
   HomeRemoteDatasourceImpl({required this.client});
   @override
-  Future<HomeDataSourceModel> getRandomHomeFromApi() async {
-    String place = "tijuana";
+  Future<HomeDataSourceModel> getRandomHomeFromApi(String place) async {
+  
     final response = await client.get(
       Uri.parse("https://search.reservamos.mx/api/v2/places?q=$place"),
       headers: {
