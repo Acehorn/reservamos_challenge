@@ -49,6 +49,7 @@ class _HomePageState extends State<HomePage> {
               child: Align(
             alignment: Alignment.topCenter,
             child: BlocBuilder<HomeLogicBloc, HomeLogicState>(
+              
               builder: (context, state) {
                 if (state is HomeLogicInitial) {
                   return const AdviceField(
@@ -59,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                   );
                 } else if (state is HomeLStateLoaded) {
                   return  CardPlace(
-                      placeLocation: state.advice ?? "Not found", temperature: state.temperature ?? "Not found");
+                      placeLocation: state.generalInf.city ?? "", temperature: state.generalInf.daily?[0].temp.max.toString() ?? "");
                 } else if (state is HomeLStateError) {
                   return ErrorMessage(message: state.message);
                 }

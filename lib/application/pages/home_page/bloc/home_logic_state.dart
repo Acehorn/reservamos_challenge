@@ -12,12 +12,12 @@ class HomeLogicInitial extends HomeLogicState {}
 class HomeLStateLoading extends HomeLogicState {}
 
 class HomeLStateLoaded extends HomeLogicState {
-  final String? advice;
-  final String? temperature;
-  HomeLStateLoaded( { this.advice, this.temperature});
+  final GeneralInformationWeather generalInf;
+
+  HomeLStateLoaded({required this.generalInf});
 
   @override
-  List<Object?> get props => [advice];
+  List<Object?> get props => [generalInf];
 }
 
 class HomeLStateError extends HomeLogicState {

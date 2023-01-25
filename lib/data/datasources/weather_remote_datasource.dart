@@ -26,9 +26,7 @@ class WeatRemoteDatasourceImpl implements WeatRemoteDatasource {
       throw ServerException();
     } else {
       final responseBody = json.decode(response.body);
-
-    
-     return List<Daily>.from(responseBody["daily"]);
+      return WeatDatasourceModel.fromJson(responseBody).listDaily;
     }
   }
 }
