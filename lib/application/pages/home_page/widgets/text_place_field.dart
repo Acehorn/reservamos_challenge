@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/home_logic_bloc.dart';
 
 class TextPlaceField extends StatelessWidget {
-  const TextPlaceField({super.key,});
+  const TextPlaceField({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +15,7 @@ class TextPlaceField extends StatelessWidget {
       child: TextField(
         onChanged: (value) {
           BlocProvider.of<HomeLogicBloc>(context)
-              .add(HomeRequestedEvent(value));
+              .add(HomeRequestedTextedEvent(value));
         },
         decoration: const InputDecoration(
             focusedBorder: OutlineInputBorder(),

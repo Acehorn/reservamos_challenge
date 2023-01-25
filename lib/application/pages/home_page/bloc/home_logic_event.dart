@@ -7,7 +7,13 @@ abstract class HomeLogicEvent extends Equatable {
 }
 
 class HomeRequestedEvent extends HomeLogicEvent {
+}
+
+class TempRequestedEvent extends HomeLogicEvent {
+}
+
+class HomeRequestedTextedEvent extends HomeLogicEvent {
 final String place;
 
-  HomeRequestedEvent(this.place);
+  HomeRequestedTextedEvent(this.place);
 }

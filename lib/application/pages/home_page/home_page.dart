@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reservamos_challenge/application/pages/home_page/widgets/advice_field.dart';
+import 'package:reservamos_challenge/application/pages/home_page/widgets/button_place.dart';
 import 'package:reservamos_challenge/application/pages/home_page/widgets/card_place.dart';
 import 'package:reservamos_challenge/application/pages/home_page/widgets/error_message.dart';
 
@@ -43,6 +44,7 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
            const TextPlaceField(),
+           const ButtonPlace(),
           Expanded(
               child: Align(
             alignment: Alignment.topCenter,
@@ -57,7 +59,7 @@ class _HomePageState extends State<HomePage> {
                   );
                 } else if (state is HomeLStateLoaded) {
                   return  CardPlace(
-                      placeLocation: state.advice, temperature: "18°");
+                      placeLocation: state.advice ?? "Not found", temperature: state.temperature ?? "Not found");
                 } else if (state is HomeLStateError) {
                   return ErrorMessage(message: state.message);
                 }
@@ -71,20 +73,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /*  cardView(String place) {
-    setState(() {
-      
-    });
-     return place!="" ?  Center(
-      child: Card(
-        child: SizedBox(
-          width: 300,
-          height: 500,
-          child: Center(child: Text(place)),
-        ),
-      ),
-    ) : Container();
 
-
-  } */
 }

@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reservamos_challenge/domain/failures/failures.dart';
 import 'package:reservamos_challenge/domain/usecases/advice_usecases.dart';
+import 'package:reservamos_challenge/domain/usecases/weather_usecases.dart';
 
 part 'home_logic_event.dart';
 part 'home_logic_state.dart';
@@ -13,16 +15,44 @@ const generalFailureMessage = "something is not working, please try again";
 
 class HomeLogicBloc extends Bloc<HomeLogicEvent, HomeLogicState> {
   final HomeLogicUsesCases homeUseCase;
-  HomeLogicBloc({required this.homeUseCase}) : super(HomeLogicInitial()) {
+  final WeatherLogicUsesCases weatherLogicUsesCases;
+
+  HomeLogicBloc( {
+    required this.homeUseCase, 
+    required this.weatherLogicUsesCases,
+    }) : super(HomeLogicInitial()) {
+    String place = "";
+        on<HomeRequestedTextedEvent>((event, emit) async {
+    //  emit(HomeLStateLoading());
+      place = event.place;
+
+    });
     on<HomeRequestedEvent>((event, emit) async {
       emit(HomeLStateLoading());
-      final failureOrHomeLog = await homeUseCase.getHomeLogic(event.place);
+      final failureOrHomeLog = await homeUseCase.getHomeLogic(place);
+      
       failureOrHomeLog.fold(
         (failure) =>
             emit(HomeLStateError(message: _mapFailureToMessage(failure))),
-        (homeL) => emit(HomeLStateLoaded(advice: homeL.cityName)),
+        (homeL) {
+         emit(HomeLStateLoaded(advice: homeL.cityName));
+
+        } 
       );
     });
+
+        on<TempRequestedEvent>((event, emit) async {
+     emit(HomeLStateLoading());
+      final failureOrHomeLog = await weatherLogicUsesCases.getWeatherLogic(place);
+      
+      failureOrHomeLog.fold(
+        (failure) =>
+            emit(HomeLStateError(message: _mapFailureToMessage(failure))),
+        (homeL) => emit(HomeLStateLoaded(temperature: homeL.listDaily[0].temp.max.toString())),
+      );
+    });
+
+
   }
 
   String _mapFailureToMessage(Failure failure) {
