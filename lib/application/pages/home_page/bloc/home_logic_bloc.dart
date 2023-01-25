@@ -12,10 +12,9 @@ const cacheFailureMessage = "SOMETHING GONE WRONG, PLEASE TRY AGAIN";
 const generalFailureMessage = "something is not working, please try again";
 
 class HomeLogicBloc extends Bloc<HomeLogicEvent, HomeLogicState> {
-  HomeLogicBloc() : super(HomeLogicInitial()) {
+  final HomeLogicUsesCases homeUseCase;
+  HomeLogicBloc({required this.homeUseCase}) : super(HomeLogicInitial()) {
     on<HomeRequestedEvent>((event, emit) async {
-      final HomeLogicUsesCases homeUseCase = HomeLogicUsesCases();
-
       emit(HomeLStateLoading());
       final failureOrHomeLog = await homeUseCase.getHomeLogic();
       failureOrHomeLog.fold(

@@ -1,31 +1,32 @@
-
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:reservamos_challenge/data/exceptions/exceptions.dart';
 
 import '../models/home_datasource_model.dart';
 
-
 abstract class HomeRemoteDatasource {
   Future<HomeDataSourceModel> getRandomHomeFromApi();
-  
-
-
 }
 
-class  HomeRemoteDatasourceImpl implements HomeRemoteDatasource {
-  final client = http.Client();
+class HomeRemoteDatasourceImpl implements HomeRemoteDatasource {
+  final http.Client client;
+  HomeRemoteDatasourceImpl({required this.client});
   @override
-  Future <HomeDataSourceModel> getRandomHomeFromApi() async {
-      String place = "tlalnepantla";
-     final response = await client.get(Uri.parse("https://search.reservamos.mx/api/v2/places?q=$place"),
-         headers: {
-         'Content-Type' : 'application/json',
-      },);
+  Future<HomeDataSourceModel> getRandomHomeFromApi() async {
+    String place = "tijuana";
+    final response = await client.get(
+      Uri.parse("https://search.reservamos.mx/api/v2/places?q=$place"),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
 
+    if (response.statusCode != 201) {
+      throw ServerException();
+    } else {
       final responseBody = json.decode(response.body);
-
       return HomeDataSourceModel.fromJson(responseBody[0]);
+    }
   }
-  
 }

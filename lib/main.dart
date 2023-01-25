@@ -4,8 +4,10 @@ import 'package:reservamos_challenge/application/pages/home_page/home_page.dart'
 import 'package:reservamos_challenge/theme.dart';
 
 import 'application/core/services/theme_service.dart';
-
-void main() {
+import 'injection.dart' as di; //dependency injection
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await di.init();
   runApp(ChangeNotifierProvider(
     create: (context) => ThemeService(),
     child: const MyApp(),

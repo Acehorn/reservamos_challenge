@@ -4,6 +4,7 @@ import 'package:reservamos_challenge/application/pages/home_page/widgets/advice_
 import 'package:reservamos_challenge/application/pages/home_page/widgets/card_place.dart';
 import 'package:reservamos_challenge/application/pages/home_page/widgets/error_message.dart';
 
+import '../../../injection.dart';
 import 'widgets/button_place.dart';
 import 'widgets/text_place_field.dart';
 
@@ -15,7 +16,7 @@ class HomePageWrapperProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeLogicBloc(),
+      create: (context) => sl<HomeLogicBloc>(),
       child: const HomePage(),
     );
   }
