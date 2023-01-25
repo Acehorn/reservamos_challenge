@@ -13,6 +13,7 @@ class TextPlaceField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(24),
       child: TextField(
+        cursorColor: Colors.blue[900],
         onChanged: (value) {
           BlocProvider.of<HomeLogicBloc>(context)
               .add(HomeRequestedTextedEvent(value));
@@ -20,7 +21,7 @@ class TextPlaceField extends StatelessWidget {
         decoration: const InputDecoration(
             focusedBorder: OutlineInputBorder(),
             border: OutlineInputBorder(),
-            hintText: 'Enter a search term',
+            hintText: 'Busqueda de ciudad',
             enabledBorder: OutlineInputBorder()),
       ),
     );

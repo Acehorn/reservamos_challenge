@@ -35,6 +35,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.blue[900],
         title: const Text("Reservamos", style: TextStyle(color: Colors.white)),
@@ -60,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                   );
                 } else if (state is HomeLStateLoaded) {
                   return  CardPlace(
-                      placeLocation: state.generalInf.city ?? "", temperature: state.generalInf.daily?[0].temp.max.toString() ?? "");
+                      placeLocation: state.generalInf.city ?? "", daily: state.generalInf.daily ?? [],);
                 } else if (state is HomeLStateError) {
                   return ErrorMessage(message: state.message);
                 }

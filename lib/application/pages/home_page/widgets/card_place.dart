@@ -1,33 +1,87 @@
 import 'package:flutter/material.dart';
 
+import '../../../../data/models/weather_datasource_model.dart';
+
 class CardPlace extends StatelessWidget {
 
   final String placeLocation;
-  final String temperature;
-  const CardPlace({super.key, required this.placeLocation, required this.temperature});
+  final List<Daily> daily;
+  const CardPlace({super.key, required this.placeLocation, required this.daily});
 
   @override
   Widget build(BuildContext context) {
        final themeData = Theme.of(context);
-    return       Card(
-             shape: RoundedRectangleBorder(
-    side:  BorderSide(
-      color: themeData.colorScheme.onPrimary
-    ),
-   borderRadius: BorderRadius.circular(15),
+    /*  final temp = temperature-273.15; */
+     double max1 = daily[0].temp.max -273.15;
+     double min1 = daily[0].temp.min -273.15;
+     double temp1 = daily[0].temp.day -273.15;
+    return   Column(
+      
+      children: [
+                    Card(
+                   shape: RoundedRectangleBorder(
+          side:  const BorderSide(
+            width: 1,
+            color: Colors.black,
+          ),
+           borderRadius: BorderRadius.circular(15),
+              
+                  
+          ),
+                  child: SizedBox(
+                    height: 100,
+                    width: double.infinity,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                       Text(placeLocation, style: themeData.textTheme.titleLarge),
+                   Text("${temp1.round()}°",  style: TextStyle(fontSize: 40)), 
+                      Text("Mín: ${min1.round()}° Máx: ${max1.round()}°"),
+                      ],
+                    )),
         
-            
-  ),
-            child: SizedBox(
-              height: 400,
-              width: 300,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                 Text(placeLocation, style: themeData.textTheme.titleLarge),
-                  Text(temperature,  style: themeData.textTheme.titleLarge),
-                ],
-              )),
-           );
+        
+                 ),
+        SizedBox(
+          height: 500,
+          width: double.infinity,
+          child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: daily.length,
+                itemBuilder: (context, index) {
+                   double max = daily[index].temp.max -273.15;
+                   double min = daily[index].temp.min -273.15;
+                   var date = DateTime.fromMillisecondsSinceEpoch(daily[index].dt * 1000);
+                  return Column(
+                    children: [
+                      ListTile(
+                
+                        tileColor: Colors.white,
+                        isThreeLine: true,
+                        leading: Text("${date.day}/${date.month}"),
+                        subtitle:  Text(daily[index].weather[0].description),
+                        title: Row(
+                          children: [
+                            const Text("min "),
+                            Text("${min.round()}°"),  
+                             const SizedBox(width: 20,),                  
+                             const Text("max "),
+                            Text("${max.round()}°"),
+                          ],
+                        ),
+                 
+                        trailing: daily[index].weather[0].icon=="01d" ? const Icon(Icons.sunny, color: Colors.yellowAccent, size: 28,) : const Icon(Icons.cloud, color: Colors.blueAccent, size: 28,),
+                      ),
+                      const Divider(color: Colors.grey, endIndent: 16, indent: 16),
+                    ],
+                  );
+                },
+              ),
+        ),
+      ],
+    );
+    
+    
+     
   }
 }
