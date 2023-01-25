@@ -72,7 +72,7 @@ class AppTheme {
         secondary: _accentColor,
         primaryContainer: _lightPrimaryVariantColor,
       ),
-      textTheme: _lightTextTheme, bottomAppBarTheme: BottomAppBarTheme(color: _appbarColorLight));
+      textTheme: _lightTextTheme, bottomAppBarTheme: const BottomAppBarTheme(color: _appbarColorLight));
 
   static final ThemeData darkTheme = ThemeData(
       scaffoldBackgroundColor: _darkPrimaryColor,
